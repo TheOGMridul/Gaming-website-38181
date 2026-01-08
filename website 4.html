@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<div id="settingsPanel">
+  <h2>⚙️ Settings</h2>
+
+  <!-- Yahi ANDAR tu apna sab content paste karega -->
+  
+  <button id="closePanel">Close ❌</button>
+</div>
+
+<button id="settingsBtn">⚙️</button>
+
+<html lang="en">
+<head>
+<style>
+  #settingsBtn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    background: #1e1e1e;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  #settingsPanel {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 280px;
+    height: 100vh;
+    background: #121212;
+    color: white;
+    padding: 20px;
+    z-index: 9998;
+    transition: 0.3s;
+    overflow-y: auto;
+    border-left: 2px solid #333;
+  }
+
+  #settingsPanel.open {
+    right: 0;
+  }
+
+  .setting-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #1e1e1e;
+    border-radius: 8px;
+  }
+
+  .setting-item label {
+    font-size: 16px;
+  }
+
+  #closePanel {
+    background: crimson;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  @media(max-width: 600px) {
+    #settingsPanel {
+      width: 240px;
+    }
+  }
+</style>
+
+<meta charset="UTF-8">
+<title>Ultimate Indian Gaming Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root{
+ --bg:#0b0e17; --card:#14192e; --text:#eaeaff;
+ --muted:#94a3b8; --accent:#00f7ff; --accent2:#ff2e63;
+}
+.light{--bg:#f4f6ff;--card:#ffffff;--text:#000000;--muted:#6b7280;--accent:#3b82f6;--accent2:#ef4444;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
+body{background:var(--bg);color:var(--text);line-height:1.7;scroll-behavior:smooth;}
+a{color:var(--accent);text-decoration:none;} a:hover{color:var(--accent2);}
+button{cursor:pointer;}
+header{background:linear-gradient(135deg,#6a00ff,#00f7ff);padding:80px 20px;text-align:center;}
+header h1{font-size:3rem;} header p{font-size:1.3rem;margin-top:10px;}
+button.toggle{margin-top:20px;padding:12px 20px;border:none;border-radius:8px;background:var(--accent2);color:#fff;font-size:1rem;}
+nav{position:sticky;top:0;background:#020617;padding:15px 25px;display:flex;justify-content:space-between;align-items:center;z-index:1000;}
+nav h2{color:var(--accent2);}
+nav a{margin-left:15px;font-weight:bold;}
+nav a:hover{color:var(--accent);}
+section{max-width:1200px;margin:auto;padding:70px 20px;}
+h2{margin-bottom:20px;color:var(--accent);}
+.card{background:var(--card);padding:25px;border-radius:14px;margin-bottom:30px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:25px;}
+img{width:100%;border-radius:12px;margin-top:15px;}
+iframe{width:100%;height:220px;border-radius:12px;border:none;}
+input{padding:10px 12px;width:90%;margin-bottom:15px;border-radius:6px;border:1px solid #1f2937;background:var(--card);color:var(--text);}
+footer{background:#000;padding:40px;text-align:center;}
+#funzone .game-card{background:var(--card);padding:20px;border-radius:12px;margin-bottom:20px;text-align:center;}
+#funzone button{background:var(--accent);color:#000;font-weight:bold;}
+</style>
+</head>
+<body>
+<button id="settingsBtn">⚙️ Settings</button>
+
+<div id="settingsPanel">
+
+  <h2>⚙️ Game Settings</h2>
+
+  <div class="setting-item">
+    <label>🌙 Dark Mode <input type="checkbox" id="darkToggle"></label>
+  </div>
+
+  <div class="setting-item">
+    <label>🎵 Music <input type="checkbox"></label>
+  </div>
+
+  <div class="setting-item">
+    <label>📳 Vibrations <input type="checkbox"></label>
+  </div>
+
+  <div class="setting-item">
+    <label>🎮 Graphics
+      <select>
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+        <option>Ultra</option>
+      </select>
+    </label>
+  </div>
+
+  <button id="closePanel">Close ❌</button>
+
+<!-- NAVBAR -->
+<nav>
+<!-- SIDE SETTINGS PANEL -->
+<div id="side-settings" style="position:fixed; top:50%; right:0; transform:translateY(-50%);
+     background:var(--card); padding:15px; border-radius:12px 0 0 12px; z-index:10000; width:220px; box-shadow:0 0 15px rgba(0,0,0,0.5); font-family:sans-serif;">
+  <h3 style="color:var(--accent2); margin-bottom:10px;">⚙️ Settings Panel</h3>
+
+  <!-- Dark / Light -->
+  <label style="display:block; margin-bottom:8px; cursor:pointer;">
+    🌙 Dark Mode
+    <input type="checkbox" id="toggle-dark" checked style="margin-left:5px;">
+  </label>
+
+  <!-- Background Music -->
+  <label style="display:block; margin-bottom:8px; cursor:pointer;">
+    🔊 Background Music
+    <input type="checkbox" id="toggle-music" checked style="margin-left:5px;">
+  </label>
+
+  <!-- Notifications -->
+  <label style="display:block; margin-bottom:8px; cursor:pointer;">
+    🖥️ Notifications
+    <input type="checkbox" id="toggle-notif" checked style="margin-left:5px;">
+  </label>
+
+  <!-- Mini Games -->
+  <label style="display:block; margin-bottom:8px; cursor:pointer;">
+    ✨ Mini Games
+    <input type="checkbox" id="toggle-games" checked style="margin-left:5px;">
+  </label>
+
+  <!-- Video Thumbnails -->
+  <label style="display:block; margin-bottom:8px; cursor:pointer;">
+    🎥 Video Thumbnails
+    <input type="checkbox" id="toggle-videos" checked style="margin-left:5px;">
+  </label>
+
+  <!-- Leaderboard -->
+  <label style="display:block; margin-bottom:8px; cursor:pointer;">
+    🏆 Leaderboard
+    <input type="checkbox" id="toggle-leaderboard" checked style="margin-left:5px;">
+  </label>
+
+  <!-- Anime Section -->
+  <label style="display:block; margin-bottom:8px; cursor:pointer;">
+    ⚔️ Anime Section
+    <input type="checkbox" id="toggle-anime" checked style="margin-left:5px;">
+  </label>
+
+  <!-- Minecraft Section -->
+  <label style="display:block; margin-bottom:8px; cursor:pointer;">
+    ⛏️ Minecraft Section
+    <input type="checkbox" id="toggle-minecraft" checked style="margin-left:5px;">
+  </label>
+
+  <!-- Free Fire / BGMI Section -->
+  <label style="display:block; margin-bottom:8px; cursor:pointer;">
+    🔥 Free Fire / BGMI
+    <input type="checkbox" id="toggle-freefire" checked style="margin-left:5px;">
+  </label>
+</div>
+
+<script>
+// 1️⃣ Dark / Light Mode
+const toggleDark = document.getElementById("toggle-dark");
+toggleDark.onchange = ()=>document.body.classList.toggle("light");
+
+// 2️⃣ Background Music
+const toggleMusic = document.getElementById("toggle-music");
+const bgMusic = new Audio("https://www.bensound.com/bensound-music/bensound-epic.mp3");
+bgMusic.loop = true;
+if(toggleMusic.checked) bgMusic.play();
+toggleMusic.onchange = ()=>toggleMusic.checked ? bgMusic.play() : bgMusic.pause();
+
+// 3️⃣ Notifications Demo
+const toggleNotif = document.getElementById("toggle-notif");
+toggleNotif.onchange = ()=>alert(toggleNotif.checked ? "✅ Notifications Enabled" : "❌ Notifications Disabled");
+
+// 4️⃣ Mini Games toggle
+const toggleGames = document.getElementById("toggle-games");
+toggleGames.onchange = ()=>{
+  const gamesSection = document.getElementById("funzone");
+  if(gamesSection) gamesSection.style.display = toggleGames.checked ? "block" : "none";
+}
+
+// 5️⃣ Video Thumbnails toggle
+const toggleVideos = document.getElementById("toggle-videos");
+toggleVideos.onchange = ()=>{
+  document.querySelectorAll('.video-fallback').forEach(fallback=>{
+    fallback.style.display = toggleVideos.checked ? "block" : "none";
+  });
+}
+
+// 6️⃣ Leaderboard toggle
+const toggleLeaderboard = document.getElementById("toggle-leaderboard");
+toggleLeaderboard.onchange = ()=>{
+  const leaderboard = document.getElementById("leaderboard");
+  if(leaderboard) leaderboard.style.display = toggleLeaderboard.checked ? "block" : "none";
+}
+
+// 7️⃣ Anime Section toggle
+const toggleAnime = document.getElementById("toggle-anime");
+toggleAnime.onchange = ()=>{
+  const anime = document.getElementById("anime");
+  if(anime) anime.style.display = toggleAnime.checked ? "block" : "none";
+}
+
+// 8️⃣ Minecraft Section toggle
+const toggleMinecraft = document.getElementById("toggle-minecraft");
+toggleMinecraft.onchange = ()=>{
+  const minecraft = document.getElementById("minecraft");
+  if(minecraft) minecraft.style.display = toggleMinecraft.checked ? "block" : "none";
+}
+
+// 9️⃣ Free Fire / BGMI toggle
+const toggleFreefire = document.getElementById("toggle-freefire");
+toggleFreefire.onchange = ()=>{
+  const freefire = document.getElementById("freefire");
+  if(freefire) freefire.style.display = toggleFreefire.checked ? "block" : "none";
+}
+</script>
+
+<h2>🔥 Deadly Gaming Hub</h2>
+<div>
+<a href="#about">About</a>
+<a href="#anime">Anime</a>
+<a href="#minecraft">Minecraft</a>
+<a href="#freefire">Free Fire / BGMI</a>
+<a href="#funzone">Fun Zone</a>
+<a href="#leaderboard">Leaderboard</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
+<!-- HERO -->
+<header>
+<h1>Ultimate Indian Gaming Hub</h1>
+<p>Minecraft • Free Fire • BGMI • PvP • Anime • Legends</p>
+<button class="toggle" onclick="toggleMode()">🌙 Dark / Light</button>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+<div class="about-section" style="background:#111; color:#fff; padding:25px; border-radius:15px; font-family:sans-serif; line-height:1.6;">
+<h2 style="text-align:center; color:#ff4d4d;">💀 About Our Gaming Hub 💀</h2>
+
+<p>Welcome to the ultimate <strong>Gaming Hub 🎮</strong>! Yahaan aapko milega <strong>Minecraft 🏰, Free Fire 🔥, BGMI 🎯</strong> aur top anime content 💎, sab ek hi jagah. Humari mission hai ki <strong>gamers ko deadly strategies 🗡️, tips & tricks ⚡, aur high-level guides 🧠</strong> provide karein, jo aapko leaderboard 🏆 tak le jaaye.</p>
+
+<p>Ye website specially banai gayi hai for <strong>pro gamers, PvP lovers 💀, aur strategy masters 💎</strong>. Hum tribute dete hain <strong>legendary players & creators 👑</strong> ko jo gaming duniya me mark chhod chuke hain. Agar aapko content pasand aaye, contact karein promotions ke liye 📧 <strong>godpeter765@gmail.com</strong>.</p>
+
+<ul style="margin-top:10px;">
+<li>🎮 Free Fire & BGMI tips, tricks & tutorials</li>
+<li>🏰 Minecraft Bedwars & Crystal PvP guides</li>
+<li>💎 Anime & Gaming combo content</li>
+<li>🌙 Dark / Light mode for comfortable browsing</li>
+<li>🔐 Login / Signup for exclusive content</li>
+<li>🏆 Leaderboards to track top players</li>
+</ul>
+
+<p style="text-align:center; font-style:italic; color:#00ffff;">Join the deadly squad 💀💥 & dominate the game!</p>
+</div>
+
+<!-- ANIME -->
+<section id="anime">
+<h2>⚔️ Anime & Gaming Tips</h2>
+<div class="card">
+<p>Anime like Naruto, Dragon Ball, and Attack on Titan inspire strategy, timing, and creativity. Tips:</p>
+<ul>
+<li>Observe movement patterns (from anime) for reflex improvement.</li>
+<li>Learn combos & timing from action sequences.</li>
+<li>Use anime mindset for competitive PvP focus.</li>
+</ul>
+<img src="https://images.unsplash.com/photo-1606112219348-204d7d8b94ee" alt="Anime inspiration">
+</div>
+</section>
+
+<!-- MINECRAFT -->
+<section id="minecraft">
+<h2>⛏️ Minecraft – Deep PvP Guide</h2>
+<div class="card">
+<h3>Basics & Tips</h3>
+<p>Movement, hotkeys, inventory, armor timing matter. Indian top players master Crystal PvP and Bedwars.</p>
+<img src="https://images.unsplash.com/photo-1611605698335-8b7c0d59d1e4" alt="Minecraft fight">
+<ul>
+<li>Always carry Totem for survival.</li>
+<li>Use obsidian platforms for safe crystal placement.</li>
+<li>Coordinate with team in Bedwars.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Crystal PvP – Pro Tips</h3>
+<ul>
+<div class="strategy-card" style="background:#111; color:#fff; padding:20px; border-radius:15px; font-family:sans-serif; line-height:1.6;">
+<h3 style="text-align:center; color:#00ffff;">💎 Crystal PvP Master Guide 💎</h3>
+
+<p>Crystal PvP me jeetne ke liye sirf fast clicks ya movement kaafi nahi hai — <strong>timing, aim aur positioning</strong> hi deadly banati hai! ⚔️ Apne hotbar me hamesha <strong>crystals, sword, endstone & blocks 🧱</strong> ready rakho. Rush ka timing perfect rakho ⏱️ aur enemy ke trap ka dhyan rakho 👀. PVP me <strong>knockback combos 💥, sprint attacks 🏃‍♂️, aur clutch plays 🧠</strong> game ka maza aur deadly edge dete hain.</p>
+
+<ul style="margin-top:10px;">
+<li>🔥 <strong>Crystal Placement:</strong> Enemy ke paas crystals strategically place karo for max damage.</li>
+<li>⚡ <strong>Fast Combos:</strong> Sword + crystal combo se quick kills 🔥</li>
+<li>🏹 <strong>Bow & Range:</strong> Long-range attacks se pressure maintain karo.</li>
+<li>🛡️ <strong>Defense:</strong> Bedrock, wool aur endstone shield ka use kar ke safe raho.</li>
+<li>💎 <strong>Resource Management:</strong> Diamonds & emeralds se upgrades lo 💪</li>
+<li>🤝 <strong>Teamwork & Mind Games:</strong> Fake rush + trap baiting se enemies confuse karo 👀</li>
+</ul>
+
+<p style="text-align:center; font-style:italic; color:#ffcc00;">Pro Tip: “Fast reflexes + smart crystal placement = ultimate domination!” ⚡💀</p>
+</div>
+
+</ul>
+<img src="https://images.unsplash.com/photo-1627852876462-2d33f1dfda30" alt="Crystal PvP Minecraft">
+<div class="grid">
+<div class="card">
+<div class="video-container" style="position:relative; width:100%; padding-bottom:56.25%; border-radius:12px; overflow:hidden; background:#000;">
+  <!-- Iframe -->
+  <iframe class="video-frame" 
+    src="https://www.youtube-nocookie.com/embed/CcFT5KuQoZk?si=9rnQQY5HoyVsv4VW" 
+    title="Free Fire Video"
+    style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen></iframe>
+
+  <!-- Fallback Thumbnail -->
+  <a class="video-fallback" href="https://www.youtube.com/watch?v=CcFT5KuQoZk" target="_blank" 
+     style="display:none; position:absolute; top:0; left:0; width:100%; height:100%;">
+    <img src="https://img.youtube.com/vi/CcFT5KuQoZk/maxresdefault.jpg" 
+         alt="Watch Video" 
+         style="width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;">
+  </a>
+</div>
+</div>
+
+<div class="card">
+<div class="video-container" style="position:relative; width:100%; padding-bottom:56.25%; border-radius:12px; overflow:hidden; background:#000;">
+  <!-- Iframe -->
+  <iframe class="video-frame" 
+    src="https://www.youtube-nocookie.com/embed/g3hSCcXKVN0?si=7ySBKKItafWoMhX9" 
+    title="Free Fire Video"
+    style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen></iframe>
+
+  <!-- Fallback Thumbnail -->
+  <a class="video-fallback" href="https://www.youtube.com/watch?v=g3hSCcXKVN0" target="_blank" 
+     style="display:none; position:absolute; top:0; left:0; width:100%; height:100%;">
+    <img src="https://img.youtube.com/vi/g3hSCcXKVN0/maxresdefault.jpg" 
+         alt="Watch Video" 
+         style="width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;">
+  </a>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h3>Bedwars Strategy</h3>
+<p>Attack-defense balance, blocks placement, team coordination are key. Watch videos below for positioning & PvP tactics:</p>
+<div class="grid">
+<div class="card">
+<div class="video-container" style="position:relative; width:100%; padding-bottom:56.25%; border-radius:12px; overflow:hidden; background:#000;">
+  <!-- Iframe -->
+  <iframe class="video-frame" 
+    src="https://www.youtube-nocookie.com/embed/9BpODmetmRk?si=b2vIog7kbAKRId3e" 
+    title="Free Fire Video"
+    style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen></iframe>
+
+  <!-- Fallback Thumbnail -->
+  <a class="video-fallback" href="https://www.youtube.com/watch?v=9BpODmetmRk" target="_blank" 
+     style="display:none; position:absolute; top:0; left:0; width:100%; height:100%;">
+    <img src="https://img.youtube.com/vi/9BpODmetmRk/maxresdefault.jpg" 
+         alt="Watch Video" 
+         style="width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;">
+  </a>
+</div>
+</div>
+<div class="card">
+<div class="video-container" style="position:relative; width:100%; padding-bottom:56.25%; border-radius:12px; overflow:hidden; background:#000;">
+  <!-- Iframe -->
+  <iframe class="video-frame" 
+    src="https://www.youtube-nocookie.com/embed/5TLkJbj--BQ?si=JWVjihAIyw5w46cn" 
+    title="Free Fire Video"
+    style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen></iframe>
+
+  <!-- Fallback Thumbnail -->
+  <a class="video-fallback" href="https://www.youtube.com/watch?v=5TLkJbj--BQ" target="_blank" 
+     style="display:none; position:absolute; top:0; left:0; width:100%; height:100%;">
+    <img src="https://img.youtube.com/vi/5TLkJbj--BQ/maxresdefault.jpg" 
+         alt="Watch Video" 
+         style="width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;">
+  </a>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- FREE FIRE / BGMI -->
+<section id="freefire">
+<h2>🔥 Free Fire & BGMI Tips</h2>
+<div class="card">
+<h3>Headshot Guide</h3>
+<p>Chest aim + upward drag = best. Adjust sensitivity for your phone. Use cover and peek efficiently.</p>
+<img src="https://images.unsplash.com/photo-1598550476439-6847785fcea6" alt="Free Fire aim">
+</div>
+
+<div class="card">
+<h3>Sensitivity & Weapons</h3>
+<ul>
+<li>General: 90–100</li>
+<li>Red Dot: 85–90</li>
+<li>2x Scope: 75</li>
+<li>AWM: 55</li>
+</ul>
+<img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1" alt="Weapons guide">
+</div>
+
+<div class="card">
+<h3>Pro Tips & Tricks</h3>
+<ul>
+<li>Always use cover; never run in open.</li>
+<li>Map awareness: know top loot spots.</li>
+<li>BGMI: Use crouch & peek for sniper advantage.</li>
+<li>Quick scope and drag shots in Free Fire.</li>
+<li>Master Gloo Walls: Use them for quick cover, to block enemies, or to create new defensive positions.</li>
+<li>Use Cover: Hide behind rocks, trees, and buildings; don't stay in the open.</li>
+<li>Strafe & Move Unpredictably: Makes you harder to hit, especially for snipers.</li>
+<li>Aim for Headshots: Practice in training to improve accuracy; it's the fastest way to kill.</li>
+<li>Choose Battles: Engage only when you have an advantage; let others weaken each other.</li>
+</ul>
+<div class="grid">
+<div class="card">
+<h3>Free Fire Crystal / Headshot Tutorial</h3>
+<div class="video-container" style="position:relative; width:100%; padding-bottom:56.25%; border-radius:12px; overflow:hidden; background:#000;">
+  <!-- Iframe -->
+  <iframe class="video-frame" 
+    src="https://www.youtube-nocookie.com/embed/NnPC7nd6B2c?si=iDtwc24FfSwk--FX" 
+    title="Free Fire Tutorial"
+    style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen></iframe>
+
+  <!-- Fallback Thumbnail -->
+  <a class="video-fallback" href="https://www.youtube.com/watch?v=NnPC7nd6B2c" target="_blank" 
+     style="display:none; position:absolute; top:0; left:0; width:100%; height:100%;">
+    <img src="https://img.youtube.com/vi/NnPC7nd6B2c/maxresdefault.jpg" 
+         alt="Watch Video" 
+         style="width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;">
+  </a>
+</div>
+</div>
+<div class="card">
+<div class="video-container" style="position:relative; width:100%; padding-bottom:56.25%; border-radius:12px; overflow:hidden; background:#000;">
+  <!-- Iframe -->
+  <iframe class="video-frame" 
+    src="https://www.youtube-nocookie.com/embed/ClZw22KSW6I?si=CqtEMh4FYid_QKsH" 
+    title="Free Fire Tutorial"
+    style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen></iframe>
+
+  <!-- Fallback Thumbnail -->
+  <a class="video-fallback" href="https://www.youtube.com/watch?v=ClZw22KSW6I" target="_blank" 
+     style="display:none; position:absolute; top:0; left:0; width:100%; height:100%;">
+    <img src="https://img.youtube.com/vi/ClZw22KSW6I/maxresdefault.jpg" 
+         alt="Watch Video" 
+         style="width:100%; height:100%; object-fit:cover; display:block; border-radius:12px;">
+  </a>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<h3>Clan / Team Play</h3>
+<p>Top Indian clans train members, push ranks & scrims. Coordination & roles matter.</p>
+</div>
+</section>
+
+<!-- FUN ZONE -->
+<section id="funzone">
+<h2>🎮 Fun Zone – Playable Mini Games</h2>
+
+<div class="game-card">
+<h3>Aim Trainer</h3>
+<p>Click red circles quickly!</p>
+<div id="aim-game" style="height:250px;position:relative;background:#111827;"></div>
+<button onclick="startAimGame()">Start</button>
+<p id="aim-score"></p>
+</div>
+
+<div class="game-card">
+<h3>CPS Test</h3>
+<p>Click button as fast as possible in 5 sec.</p>
+<button id="cps-btn">Click Me!</button>
+<p>Score: <span id="cps-score">0</span></p>
+</div>
+
+<div class="game-card">
+<h3>Reaction Timer</h3>
+<p>Wait for green box then click!</p>
+<div id="reaction-box" style="height:100px;background:#111827;margin-bottom:10px;"></div>
+<button onclick="startReaction()">Start</button>
+<p id="reaction-result"></p>
+</div>
+</section>
+
+<!-- LEADERBOARD -->
+<section id="leaderboard">
+<h2>🏆 Top Indian Players</h2>
+<div class="card">
+<ol>
+<li>CrystalKing – Minecraft</li>
+<li>SilentHeadshot – Free Fire</li>
+<li>BGMI_Pro – BGMI</li>
+<li>AnimeStrategist – PvP</li>
+</ol>
+</div>
+</section>
+
+<!-- LOGIN -->
+<section id="login">
+<h2>🔐 Login / Signup Demo</h2>
+<div class="card">
+<input placeholder="Username"><br>
+<input placeholder="Password" type="password"><br>
+<button>Login</button> <button>Signup</button>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2>📧 Promotions & Contact</h2>
+<div class="card">
+<p>For collaborations & sponsorships:</p>
+<b>godpeter765@gmail.com</b>
+</div>
+</section>
+
+<footer>
+<p>© 2026 Deadly Indian Gaming Hub</p>
+</footer>
+
+<script>
+function toggleMode(){document.body.classList.toggle("light");}
+
+// Mini Games JS
+let aimScore=0;
+function startAimGame(){
+ const game=document.getElementById("aim-game");
+ game.innerHTML="";
+ aimScore=0;
+ for(let i=0;i<5;i++){
+  let dot=document.createElement("div");
+  dot.style.width="40px"; dot.style.height="40px"; dot.style.borderRadius="50%";
+  dot.style.background="red"; dot.style.position="absolute";
+  dot.style.top=Math.random()*200+"px";
+  dot.style.left=Math.random()*game.offsetWidth+"px";
+  dot.onclick=function(){aimScore++;document.getElementById("aim-score").innerText="Score: "+aimScore; this.remove();}
+  game.appendChild(dot);
+ }
+}
+
+// CPS Test
+let cpsScore=0; const cpsBtn=document.getElementById("cps-btn");
+cpsBtn.onclick=function(){cpsScore++; document.getElementById("cps-score").innerText=cpsScore;}
+setTimeout(()=>{cpsBtn.disabled=true;},5000);
+
+// Reaction Timer
+let reactionTimeout;
+function startReaction(){
+ const box=document.getElementById("reaction-box");
+ document.getElementById("reaction-result").innerText="";
+ box.style.background="#111827";
+ const delay=Math.random()*3000+1000;
+ reactionTimeout=setTimeout(()=>{
+  box.style.background="green";
+  box.onclick=function(){document.getElementById("reaction-result").innerText="Reaction Time: "+((Date.now()-startTime)/1000).toFixed(3)+" sec";}
+  startTime=Date.now();
+ },delay);
+}
+</script>
+<script>
+// Check if iframe loaded successfully
+document.querySelectorAll('.video-container').forEach(container=>{
+  const iframe = container.querySelector('.video-frame');
+  const fallback = container.querySelector('.video-fallback');
+
+  setTimeout(()=>{
+    try{
+      const doc = iframe.contentWindow.document;
+    }catch(e){
+      // iframe blocked → show fallback thumbnail
+      iframe.style.display='none';
+      fallback.style.display='block';
+    }
+  },2000);
+});
+</script>
+
+</body>
+</html>
